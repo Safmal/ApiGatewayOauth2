@@ -1,0 +1,17 @@
+server:
+  port: 8082
+rest:
+  security:
+    issuer-uri: http://localhost:8080/auth/realms/dev
+    api-matcher: /api/**
+    cors:
+      allowed-origins: '*'
+      allowed-headers: '*'
+      allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+      max-age: 3600
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${rest.security.issuer-uri}
