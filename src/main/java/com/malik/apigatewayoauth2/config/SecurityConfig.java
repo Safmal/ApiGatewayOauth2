@@ -26,7 +26,9 @@ public class SecurityConfig {
         http
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
-                .authorizeExchange()//.pathMatchers(securityProperties.getApiMatcher())
+                .authorizeExchange()
+                .pathMatchers("/health-check")
+                .permitAll()
                 .anyExchange()
                 .authenticated()
                 .and()

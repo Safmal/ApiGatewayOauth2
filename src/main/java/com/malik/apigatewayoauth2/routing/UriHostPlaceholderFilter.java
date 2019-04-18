@@ -5,7 +5,6 @@ import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFac
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
-import org.springframework.web.util.pattern.PathPattern.PathMatchInfo;
 
 import java.net.URI;
 import java.util.Map;
