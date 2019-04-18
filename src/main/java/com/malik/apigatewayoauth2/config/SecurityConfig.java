@@ -26,7 +26,8 @@ public class SecurityConfig {
         http
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
-                .authorizeExchange().pathMatchers(securityProperties.getApiMatcher())
+                .authorizeExchange()//.pathMatchers(securityProperties.getApiMatcher())
+                .anyExchange()
                 .authenticated()
                 .and()
                 .oauth2ResourceServer()
