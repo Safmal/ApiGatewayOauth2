@@ -24,9 +24,11 @@ public class UriHostPlaceholderFilter extends AbstractGatewayFilterFactory {
                 return chain.filter(exchange);
             }
             URI uri = route.getUri();
-            String host = uri.getHost();
-            if ((host != null) && uriVariables.containsKey(host)) {
-                host = uriVariables.get(host);
+            String[] hostWithVersion = uri.getHost().split("-");
+            String host = hostWithVersion[0];
+            String version = hostWithVersion[1];
+            if ((host != null && version != null) && (uriVariables.containsKey(host) && uriVariables.containsKey(version))) {
+                host = uriVariables.get(host) + "-" + uriVariables.get(version);
             }
             if (host == null) {
                 return chain.filter(exchange);

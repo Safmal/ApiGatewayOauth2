@@ -1,9 +1,6 @@
-server:
-  port: 8082
-
 rest:
   security:
-    issuer-uri: http://localhost:8080/auth/realms/dev
+    issuer-uri: ${AUTH_SERVER_URI:http://localhost:8080/auth/realms/dev}
     api-matcher: /**
     cors:
       allowed-origins: '*'
@@ -12,21 +9,12 @@ rest:
       max-age: 3600
 
 spring:
-  application:
-    name: gateway
-
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: ${rest.security.issuer-uri}
-
   cloud:
-    consul:
-      discovery:
-        instance-id: ${spring.application.name}
-        healthCheckPath: /health-check
-        healthCheckInterval: 20s
     gateway:
       discovery:
         locator:
@@ -34,10 +22,10 @@ spring:
       routes:
         - id: framework
           predicates:
-            - Path=/{application}/**
-          uri: lb://application
+            - Path=/services/rest/{application}/{version}/**
+          uri: lb://application-version
           filters:
-            - StripPrefix=1
+            - StripPrefix=4
             - UriHostPlaceholderFilter
 #logging:
 #  level:
